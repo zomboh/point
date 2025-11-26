@@ -1,11 +1,11 @@
 import './App.css'
-import MapViewer from './MapViewer'
+import RenderMapWithPois from './RenderMapWithPois'
 
 function App() {
 
   return (
     <>
-      <MapViewer apiKey="your_api_key_here" buildingId={7033} />
+    <RenderMapWithPois />
     </>
   )
 }
