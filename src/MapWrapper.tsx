@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   Map,
   NavigationControl,
@@ -11,22 +10,29 @@ import { type Poi } from '@situm/sdk-js';
 import Pin from './Pin'
 import PinInfo from './PinInfo'
 
-interface props {
-  onPinClick: (poi: Poi) => void,
-  onPinInfoClose: () => void,
-  selectedMarker: Poi | null,
-  situmPois: Poi[] | null
+interface viewState {
+  latitude: number,
+  longitude: number,
+  zoom: number
 }
 
-function MapWrapper({ onPinClick, onPinInfoClose, selectedMarker, situmPois }: props) {
-  const [viewState, setViewState] = useState({ latitude: 43.35210002555383, longitude: -8.425047024336083, zoom: 18 });
-  if (situmPois) {
+interface props {
+  onMove: (e: { viewState: viewState }) => void,
+  onPinClick: (poi: Poi, e: { viewState: viewState }) => void;
+  onPinInfoClose: () => void,
+  selectedMarker: Poi | null,
+  situmPois: Poi[] | null,
+  viewState: viewState,
+}
 
+function MapWrapper({ onMove, onPinClick, onPinInfoClose, selectedMarker, situmPois, viewState }: props) {
+  
+  if (situmPois) {
     return (
       <Map
         {...viewState}
         mapStyle="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
-        onMove={e => setViewState(e.viewState)}
+        onMove={onMove}
       >
         <FullscreenControl position="top-right" />
         <NavigationControl position="top-right" />
@@ -36,13 +42,17 @@ function MapWrapper({ onPinClick, onPinInfoClose, selectedMarker, situmPois }: p
             key={`pin-${situmPoi.id}`}
             poi={situmPoi}
             onClick={() => {
-              onPinClick(situmPoi);
-              setViewState({ latitude: situmPoi.location.lat, longitude: situmPoi.location.lng, zoom: viewState.zoom })
+              onPinClick(situmPoi, { 
+                viewState: { 
+                  latitude: situmPoi.location.lat, 
+                  longitude: situmPoi.location.lng, 
+                  zoom: viewState.zoom 
+                } 
+              });
             }}
           >
           </Pin>
-        ))
-        }
+        ))}
         {selectedMarker && (
           <PinInfo
             key={`pinInfo-${selectedMarker.id}`}

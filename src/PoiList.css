@@ -1,0 +1,23 @@
+.poi-list {
+  box-shadow: var(--drop-shadow-xl);
+  left: 1rem;
+  max-height: 40vh;
+  overflow: auto;
+  position: absolute;
+  top: 1rem;
+}
+
+.poi-list-link:not(.active) li:hover {
+  background-color: var(--color-sky-100);
+}
+
+.poi-list-link.active {
+  background-color: var(--color-sky-200);
+}
+
+.poi-list-icon {
+  fill: var(--color-neutral-500);
+  max-height: 40px;
+  max-width: 40px;
+  object-fit: cover;
+}
