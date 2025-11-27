@@ -1,3 +1,4 @@
+import './PinInfo.css'
 import { Popup } from '@vis.gl/react-maplibre';
 import { type Poi } from '@situm/sdk-js';
 
@@ -19,8 +20,10 @@ function PinInfo({
       latitude={poi.location.lat}
       onClose={() => onClose()}
     >
-      <div>
-        {poi.name}
+      <div className="text-sm">
+        <h3 className="text-md font-bold">
+          {poi.name}
+        </h3>
       </div>
     </Popup>
   )

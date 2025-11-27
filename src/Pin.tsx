@@ -1,5 +1,6 @@
 import { Marker } from '@vis.gl/react-maplibre';
 import { type Poi } from '@situm/sdk-js';
+import './Pin.css';
 
 interface props {
   poi: Poi;
@@ -23,6 +24,9 @@ function Pin({
       }}
       style={{ cursor: 'pointer' }}
     >
+    <div className="poi-name">
+      {poi.name}
+    </div>
     </Marker>
   )
 }

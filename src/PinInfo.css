@@ -1,0 +1,25 @@
+.maplibregl-marker {
+  align-items: center;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.maplibregl-popup-content {
+  padding: 1rem;
+  box-shadow: var(--drop-shadow-xl);
+}
+
+.maplibregl-popup-close-button {
+  background-color: var(--color-black);
+  border-radius: 100%;
+  color: white;
+  font-size: var(--text-xl);
+  padding: .1rem;
+  transform: translate(50%, -50%);
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.maplibregl-popup-close-button:hover {
+  background-color: var(--color-red-500);
+}
