@@ -4,6 +4,11 @@
   flex-flow: column nowrap;
 }
 
+.maplibregl-popup {
+  min-width: 30vw!important;
+  max-width: 10px!important;
+}
+
 .maplibregl-popup-content {
   padding: 1rem;
   box-shadow: var(--drop-shadow-xl);
@@ -22,4 +27,22 @@
 
 .maplibregl-popup-close-button:hover {
   background-color: var(--color-red-500);
+}
+
+.situm-info {
+  max-height: 40vh;
+  overflow: auto;
+  margin-top: 1rem;
+
+  img {
+    height: auto;
+    margin-bottom: 0.5rem;
+    width: 100%;
+  }
+
+  p {
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);;
+    margin-bottom: .25rem;
+  }
 }

@@ -1,6 +1,7 @@
 import './PinInfo.css'
 import { Popup } from '@vis.gl/react-maplibre';
 import { type Poi } from '@situm/sdk-js';
+import DOMPurify from 'dompurify';
 
 interface props {
   poi: Poi;
@@ -20,11 +21,16 @@ function PinInfo({
       latitude={poi.location.lat}
       onClose={() => onClose()}
     >
-      <div className="text-sm">
-        <h3 className="text-md font-bold">
+      {poi.name ? (
+        <h3 className="font-bold text-center text-lg">
           {poi.name}
         </h3>
-      </div>
+      ) : null}
+      {poi.info ? (
+        // I know you sanitize your inputs, but just in case... :)
+        <div className="text-base situm-info" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(poi.info) }}>
+        </div>
+      ) : null}
     </Popup>
   )
 }
