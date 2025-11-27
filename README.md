@@ -24,3 +24,29 @@ If you want to deploy the app, the easiest way is to just link github with Cloud
 
 **Point** is deployment environment agnostic, so it doesn't include the wrangler dependency by default.
 
+## Tech
+- `Vite` - because of its built-in HMR, React typescript template, eslint...
+- `React`
+- `Typescript`
+- `DaisyUI` (based on `tailwind css`)
+- `Maplibre-gl` and `react-maplibre`
+- ...last but not least, `Situm SDK js`
+
+I chose this tech because:
+- It aligned with Situm's use of React and Typescript.
+- It provided me with a good starting point for developing. Vite's React typescript template is a nice boilerplate. The HMR is probably the fastest I've ever experienced, and ESLint coupled with VSCode was pretty great.
+
+It was very important for me to have a good boilerplate and help from a linter, mainly because **it is the first time I use any of these technologies**. It was hard transitioning from my imperative brain to a declarative one, but I think I surpassed the POInt of no return now and there's no going back ;)
+
+## Things I know I could improve
+**So many**. Off the top of my head:
+- **UI/UX**: *Tons* of stuff here... there's basically almost no UI/UX, I was too busy getting used to the new tech :( - "loading" states with their corresponding loading bars and smooth transitions between views, animations in general (*animating the map when clicking on a POI! Which you can do with the `FlyTo` method in maplibre, maybe next time*), better POI popup UI design, center the map taking the POI info popup into account (*pretty important!*), etc...).
+- **Unit tests**: No time for this. I would use **Jest** and some React bindings I saw around.
+- **Search in the POI list**: no time for this. Google Gemini suggested a pretty clean and straightforward to implement this, but it felt like cheating so I preferred to keep it as is. Only very simple questions were asked to AI during development to help with stuff I was not familiar with (*e.g.: This is how I want to model this data, how would I define that in a typescript interface?*).
+- **Manage state with Redux**: I don't think it's necessary for such a simple app, but it'd be nice to learn how to do it. I was already too busy getting used to a lot of new tech. Next time!
+- **Types**: I fixed everything the linter complained about, but I'm still getting used to working with types.
+- **Split POIs in floors**: This one hurts a lot. I know, I know it sucks. I can do it, but I ran out of time and preferred to show my versatility in other areas. The way the components and state are now laid out though, I think it'd be very easy to implement this.
+- **Design patterns and good practices in general**: Again, first time using all of this tech stack. Not familiar at all with React's/typescript best practices, and I'm super rusty with coding in general.
+
+**All in all... I learned a ton and had a lot of fun!**
+
