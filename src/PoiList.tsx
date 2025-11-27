@@ -1,6 +1,7 @@
 import { type Poi } from '@situm/sdk-js';
 import './PoiList.css'
 import { useEffect, useRef } from 'react';
+import logoImage from './assets/logo.svg';
 
 interface viewState {
   latitude: number,
@@ -29,6 +30,10 @@ function PoiList({ onPoiClick, selectedMarker, situmPois, viewState }: props) {
 
   if (situmPois) {
     return (
+      <div className="poi-list-wrapper">
+        <header className="logo">
+          <img src={logoImage} alt="POInt" />
+        </header>
       <div className="poi-list">
         <ul className="list bg-base-100 rounded-box shadow-md">
           {situmPois.map(situmPoi => (
@@ -94,6 +99,7 @@ function PoiList({ onPoiClick, selectedMarker, situmPois, viewState }: props) {
           ))}
         </ul>
       </div>
+    </div>
     )
   }
 }
