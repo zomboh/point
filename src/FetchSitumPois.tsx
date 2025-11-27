@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react'
 import SitumSDK, { type Poi } from '@situm/sdk-js';
 
+const APIKEY = import.meta.env.VITE_SITUM_API_KEY;
+
 const sdk = new SitumSDK({
   auth: {
-    // TODO: Move the key to an external file
-    // ... and invalidate this one, since it's already been committed and compromised :)
-    apiKey: "your_api_key_here",
+    apiKey: APIKEY,
   },
   domain: "https://api.situm.com",
 });
-
 
 function FetchSitumPois() {
   const [fetchedPois, setFetchedPois] = useState<Poi[] | null>(null);
