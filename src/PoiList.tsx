@@ -1,5 +1,6 @@
 import { type Poi } from '@situm/sdk-js';
 import './PoiList.css'
+import { useEffect, useRef } from 'react';
 
 interface viewState {
   latitude: number,
@@ -15,6 +16,16 @@ interface props {
 }
 
 function PoiList({ onPoiClick, selectedMarker, situmPois, viewState }: props) {
+  const activeItemRef = useRef<HTMLAnchorElement>(null);
+
+  useEffect(() => {
+    if (activeItemRef.current) {
+      activeItemRef.current.scrollIntoView({
+        behavior: 'smooth', 
+        block: 'center' 
+      });
+    }
+  }, [selectedMarker]);
 
   if (situmPois) {
     return (
@@ -22,8 +33,8 @@ function PoiList({ onPoiClick, selectedMarker, situmPois, viewState }: props) {
         <ul className="list bg-base-100 rounded-box shadow-md">
           {situmPois.map(situmPoi => (
             <a
+            className={situmPoi.id === selectedMarker?.id ? "poi-list-link active" : "poi-list-link"}
               href="#"
-              className={situmPoi.id === selectedMarker?.id ? "poi-list-link active" : "poi-list-link"}
               key={`poi-${situmPoi.id}`}
               onClick={(e) => {
                 e.preventDefault;
@@ -35,6 +46,7 @@ function PoiList({ onPoiClick, selectedMarker, situmPois, viewState }: props) {
                   }
                 });
               }}
+              ref={situmPoi.id === selectedMarker?.id ? activeItemRef : null}
             >
               <li className="list-row">
                 {situmPoi.icon ? (
