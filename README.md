@@ -1,3 +1,4 @@
+<img width="250" height="100" alt="POInt" src="https://github.com/user-attachments/assets/317d1b3d-2bc7-47af-932d-2ae02a118a8c" />
 
 # point
 A little web app that allows you to interact with a map.
@@ -19,7 +20,7 @@ Make sure you have an up-to-date environment and simply run `npm install`.
 
 If you want to deploy the app, the easiest way is to just link github with Cloudflare and let a worker handle it. It'll correctly set the build environment for you, except for two things:
 - **Supply the following deploy command to the worker so it deploys successfully**: `npx wrangler deploy --assets=./dist --compatibility-date 2025-11-25`.
-- **Add a "VITE_SITUM_API_KEY" with your private api key value as an environment variable in your worker settings**.
+- **Add a "VITE_SITUM_API_KEY" environment variable with your private api key value to your worker settings**.
 
 **Point** is deployment environment agnostic, so it doesn't include the wrangler dependency by default.
 
