@@ -1,11 +1,11 @@
 import './App.css'
-import RenderMapWithPois from './RenderMapWithPois'
+import MapWrapper from './MapWrapper'
 
 function App() {
 
   return (
     <>
-    <RenderMapWithPois />
+    <MapWrapper />
     </>
   )
 }

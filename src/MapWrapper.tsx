@@ -13,7 +13,7 @@ import Pin from './Pin'
 import PinInfo from './PinInfo'
 
 
-function RenderMapWithPois() {
+function MapWrapper() {
   const [selectedMarker, setSelectedMarker] = useState<Poi | null>(null);
   const [viewState, setViewState] = useState({ latitude: 43.35210002555383, longitude: -8.425047024336083, zoom: 18 });
 
@@ -54,4 +54,4 @@ function RenderMapWithPois() {
   }
 }
 
-export default RenderMapWithPois;
+export default MapWrapper;
