@@ -1,23 +1,31 @@
-import { type Poi } from '@situm/sdk-js';
-import './PoiList.css'
+import { type Poi, type Floor } from '@situm/sdk-js';
+import './PoiList.css';
 import { useEffect, useRef } from 'react';
 import logoImage from './assets/logo.svg';
 
-interface viewState {
-  latitude: number,
-  longitude: number,
-  zoom: number
+interface ViewState {
+  latitude: number;
+  longitude: number;
+  zoom: number;
 }
 
-interface props {
-  onPoiClick: (poi: Poi, e: { viewState: viewState }) => void;
-  selectedMarker: Poi | null,
-  situmPois: Poi[] | null,
-  viewState: viewState,
+interface SitumData {
+  pois: Poi[] | null;
+  floors: readonly Floor[] | null;
+  loading: boolean;
+  error: Error | null;
 }
 
-function PoiList({ onPoiClick, selectedMarker, situmPois, viewState }: props) {
+interface PoiListProps {
+  onPoiClick: (poi: Poi, e: { viewState: ViewState }) => void;
+  selectedMarker: Poi | null;
+  situmData: SitumData;
+  viewState: ViewState;
+}
+
+function PoiList({ onPoiClick, selectedMarker, situmData, viewState }: PoiListProps) {
   const activeItemRef = useRef<HTMLAnchorElement>(null);
+  const { pois, floors, loading, error } = situmData;
 
   useEffect(() => {
     if (activeItemRef.current) {
@@ -28,38 +36,85 @@ function PoiList({ onPoiClick, selectedMarker, situmPois, viewState }: props) {
     }
   }, [selectedMarker]);
 
-  if (situmPois) {
+  if (loading) {
     return (
       <div className="poi-list-wrapper">
         <header className="logo">
           <img src={logoImage} alt="POInt" />
         </header>
+        <div className="poi-list">
+          <div className="flex justify-center items-center p-4">
+            Loading POIs...
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="poi-list-wrapper">
+        <header className="logo">
+          <img src={logoImage} alt="POInt" />
+        </header>
+        <div className="poi-list">
+          <div className="flex justify-center items-center p-4 text-red-500">
+            Error: {error.message}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!pois || pois.length === 0) {
+    return (
+      <div className="poi-list-wrapper">
+        <header className="logo">
+          <img src={logoImage} alt="POInt" />
+        </header>
+        <div className="poi-list">
+          <div className="flex justify-center items-center p-4">
+            No POIs available
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="poi-list-wrapper">
+      <header className="logo">
+        <img src={logoImage} alt="POInt" />
+      </header>
       <div className="poi-list">
         <ul className="list bg-base-100 rounded-box shadow-md">
-          {situmPois.map(situmPoi => (
+          {pois.map(poi => (
             <a
-            className={situmPoi.id === selectedMarker?.id ? "poi-list-link active" : "poi-list-link"}
+              className={poi.id === selectedMarker?.id ? "poi-list-link active" : "poi-list-link"}
               href="#"
-              key={`poi-${situmPoi.id}`}
+              key={`poi-${poi.id}`}
               onClick={(e) => {
-                e.preventDefault;
-                onPoiClick(situmPoi, {
+                e.preventDefault();
+                onPoiClick(poi, {
                   viewState: {
-                    latitude: situmPoi.location.lat,
-                    longitude: situmPoi.location.lng,
+                    latitude: poi.location.lat,
+                    longitude: poi.location.lng,
                     zoom: viewState.zoom
                   }
                 });
               }}
-              ref={situmPoi.id === selectedMarker?.id ? activeItemRef : null}
+              ref={poi.id === selectedMarker?.id ? activeItemRef : null}
             >
               <li className="list-row">
-                {situmPoi.icon ? (
-                  // Sorry about the hotlinking :)
+                {poi.icon ? (
                   <div>
-                    <img className="poi-list-icon" src={`https://dashboard.situm.com${situmPoi.icon}`} />
+                    <img 
+                      className="poi-list-icon" 
+                      src={`https://dashboard.situm.com${poi.icon}`}
+                      alt={poi.name || 'POI icon'}
+                    />
                   </div>
-                ) :
+                ) : (
                   <div>
                     <svg
                       className="poi-list-icon"
@@ -74,25 +129,22 @@ function PoiList({ onPoiClick, selectedMarker, situmPois, viewState }: props) {
                       />
                     </svg>
                   </div>
-                }
+                )}
                 <div>
-                  {situmPoi.name ? (
+                  {poi.name ? (
                     <div className="font-bold text-base">
-                      {situmPoi.name}
+                      {poi.name}
                     </div>
-                  ) :
+                  ) : (
                     <div>
                       Unnamed POI
                     </div>
-                  }
-                  {situmPoi.categoryName ? (
-                    <div>
-                      <div className="text-xs uppercase font-semibold opacity-60">
-                        {situmPoi.categoryName}
-                      </div>
+                  )}
+                  {poi.categoryName && (
+                    <div className="text-xs uppercase font-semibold opacity-60">
+                      {poi.categoryName}
                     </div>
-                  ) : null
-                  }
+                  )}
                 </div>
               </li>
             </a>
@@ -100,8 +152,7 @@ function PoiList({ onPoiClick, selectedMarker, situmPois, viewState }: props) {
         </ul>
       </div>
     </div>
-    )
-  }
+  );
 }
 
 export default PoiList;

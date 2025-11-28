@@ -5,65 +5,95 @@ import {
   ScaleControl
 } from '@vis.gl/react-maplibre';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import { type Poi } from '@situm/sdk-js';
+import { type Poi, type Floor } from '@situm/sdk-js';
+import Pin from './Pin';
+import PinInfo from './PinInfo';
 
-import Pin from './Pin'
-import PinInfo from './PinInfo'
-
-interface viewState {
-  latitude: number,
-  longitude: number,
-  zoom: number
+interface ViewState {
+  latitude: number;
+  longitude: number;
+  zoom: number;
 }
 
-interface props {
-  onMove: (e: { viewState: viewState }) => void,
-  onPinClick: (poi: Poi, e: { viewState: viewState }) => void;
-  onPinInfoClose: () => void,
-  selectedMarker: Poi | null,
-  situmPois: Poi[] | null,
-  viewState: viewState,
+interface SitumData {
+  pois: Poi[] | null;
+  floors: readonly Floor[] | null;
+  loading: boolean;
+  error: Error | null;
 }
 
-function MapWrapper({ onMove, onPinClick, onPinInfoClose, selectedMarker, situmPois, viewState }: props) {
-  
-  if (situmPois) {
-    return (
-      <Map
-        {...viewState}
-        mapStyle="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
-        onMove={onMove}
-      >
-        <FullscreenControl position="top-right" />
-        <NavigationControl position="top-right" />
-        <ScaleControl />
-        {situmPois.map(situmPoi => (
-          <Pin
-            key={`pin-${situmPoi.id}`}
-            poi={situmPoi}
-            onClick={() => {
-              onPinClick(situmPoi, { 
-                viewState: { 
-                  latitude: situmPoi.location.lat, 
-                  longitude: situmPoi.location.lng, 
-                  zoom: viewState.zoom 
-                } 
-              });
-            }}
-          >
-          </Pin>
-        ))}
-        {selectedMarker && (
-          <PinInfo
-            key={`pinInfo-${selectedMarker.id}`}
-            poi={selectedMarker}
-            onClose={onPinInfoClose}
-          >
-          </PinInfo>
-        )}
-      </Map>
-    );
+interface MapWrapperProps {
+  onMove: (e: { viewState: ViewState }) => void;
+  onPinClick: (poi: Poi, e: { viewState: ViewState }) => void;
+  onPinInfoClose: () => void;
+  selectedMarker: Poi | null;
+  situmData: SitumData;
+  viewState: ViewState;
+}
+
+function MapWrapper({ 
+  onMove, 
+  onPinClick, 
+  onPinInfoClose, 
+  selectedMarker, 
+  situmData, 
+  viewState 
+}: MapWrapperProps) {
+  const { pois, floors, loading, error } = situmData;
+
+  // TODO: show something in front
+  if (loading) {
+    console.log("Loading map data...");
+    return;
   }
+
+  // TODO: show something in front
+  if (error) {
+    console.log("Error loading map data");
+    return;
+  }
+
+    // TODO: show something in front
+  if (!pois || pois.length === 0) {
+    console.log("No POIs available");
+    return;
+  }
+
+  return (
+    <Map
+      {...viewState}
+      mapStyle="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
+      onMove={onMove}
+    >
+      <FullscreenControl position="top-right" />
+      <NavigationControl position="top-right" />
+      <ScaleControl />
+      
+      {pois.map(poi => (
+        <Pin
+          key={`pin-${poi.id}`}
+          poi={poi}
+          onClick={() => {
+            onPinClick(poi, { 
+              viewState: { 
+                latitude: poi.location.lat, 
+                longitude: poi.location.lng, 
+                zoom: viewState.zoom 
+              } 
+            });
+          }}
+        />
+      ))}
+      
+      {selectedMarker && (
+        <PinInfo
+          key={`pinInfo-${selectedMarker.id}`}
+          poi={selectedMarker}
+          onClose={onPinInfoClose}
+        />
+      )}
+    </Map>
+  );
 }
 
 export default MapWrapper;
