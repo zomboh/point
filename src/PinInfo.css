@@ -10,6 +10,7 @@
 }
 
 .maplibregl-popup-content {
+  border-radius: .5rem;
   padding: 1rem;
   box-shadow: var(--drop-shadow-xl);
 }
@@ -30,13 +31,14 @@
 }
 
 .situm-info {
-  max-height: 40vh;
+  max-height: 400px;
   overflow: auto;
   margin-top: 1rem;
 
   img {
+    border-radius: .5rem;
     height: auto;
-    margin-bottom: 0.5rem;
+    margin-bottom: .5rem;
     width: 100%;
   }
 

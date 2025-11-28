@@ -24,6 +24,7 @@ function Pin({ onClick, poi, selectedMarker }: PinProps) {
       }}
       style={{
         cursor: 'pointer',
+        zIndex: isSelected ? 1000 : 0,
       }}
     >
       <article
@@ -54,7 +55,7 @@ function Pin({ onClick, poi, selectedMarker }: PinProps) {
           </svg>
         )}
         {poi.name && (
-          <header className="text-sm">
+          <header className="text-sm text-neutral-600">
             {poi.name}
           </header>
         )}
