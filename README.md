@@ -36,7 +36,7 @@ It was very important for me to have a good boilerplate and help from a linter, 
 
 ## Things I know I could improve
 **So many**. Off the top of my head:
-- **UI/UX**: *Tons* of stuff here... there's basically almost no UI/UX, I was too busy getting used to the new tech :( - "loading" states with their corresponding loading bars and smooth transitions between views, animations in general (*animating the map when clicking on a POI! Which you can do with the `FlyTo` method in maplibre, maybe next time*), better POI popup UI design, center the map taking the POI info popup into account (*pretty important!*), etc...).
+- **UI/UX**: *Tons* of stuff here... there's basically almost no proper UI/UX, I was too busy getting used to the new tech :( - the app is basically unusable in width < 1024px viewports, "loading" states exist but are not super smooth *(I'd like to add visual indicators like loading bars, transitions between views etc)*, there are almost no animations at all (*specially no animating the map when clicking on a POI! I experimented with the `FlyTo` method in maplibre, but I couldn't get it to work smoothly*), I'd like a better POI popup UI design, and center the map in the viewport taking the POI info popup into account (*pretty important!*), etc...).
 - **Unit tests**: No time for this. I would use **Jest** and some React bindings I saw around.
 - **Manage state with Redux**: I don't think it's necessary for such a simple app, but it'd be nice to learn how to do it. I was already too busy getting used to a lot of new tech. Next time!
 - **Types**: I fixed everything the linter complained about, but I'm still getting used to working with types.
