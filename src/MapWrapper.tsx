@@ -43,7 +43,6 @@ function MapWrapper({
 }: MapWrapperProps) {
   const { pois, loading, error } = situmData;
 
-  // Handle loading state
   if (loading) {
     return (
       <div style={{ 
@@ -58,7 +57,6 @@ function MapWrapper({
     );
   }
 
-  // Handle error state
   if (error) {
     return (
       <div style={{ 
@@ -74,7 +72,6 @@ function MapWrapper({
     );
   }
 
-  // Handle no data
   if (!pois || pois.length === 0) {
     return (
       <div style={{ 
@@ -89,7 +86,6 @@ function MapWrapper({
     );
   }
 
-  // Filter POIs by selected floor
   const filteredPois = selectedFloorId 
     ? pois.filter(poi => poi.floorId === selectedFloorId)
     : pois;
@@ -103,7 +99,7 @@ function MapWrapper({
       <FullscreenControl position="top-right" />
       <NavigationControl position="top-right" />
       <ScaleControl />
-      
+
       {filteredPois.map(poi => (
         <Pin
           key={`pin-${poi.id}`}
@@ -119,7 +115,7 @@ function MapWrapper({
           }}
         />
       ))}
-      
+
       {selectedMarker && selectedMarker.floorId === selectedFloorId && (
         <PinInfo
           key={`pinInfo-${selectedMarker.id}`}
