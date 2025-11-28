@@ -3,11 +3,15 @@ import { type Poi } from '@situm/sdk-js';
 import './Pin.css';
 
 interface PinProps {
-  poi: Poi;
-  onClick: () => void;
+  onClick: () => void,
+  poi: Poi,
+  selectedMarker: Poi | null
 }
 
-function Pin({ poi, onClick }: PinProps) {
+function Pin({ onClick, poi, selectedMarker }: PinProps) {
+  const isSelected = selectedMarker?.id === poi.id;
+  const shouldFade = selectedMarker !== null && !isSelected;
+
   return (
     <Marker
       key={`marker-${poi.id}`}
@@ -18,9 +22,17 @@ function Pin({ poi, onClick }: PinProps) {
         e.originalEvent.stopPropagation();
         onClick();
       }}
-      style={{ cursor: 'pointer' }}
+      style={{
+        cursor: 'pointer',
+      }}
     >
-      <article className="flex flex-col items-center">
+      <article
+        className={`flex flex-col items-center situm-pin ${isSelected ? 'is-selected' : ''}`}
+        style={{
+          opacity: shouldFade ? 0.5 : 1, 
+          transition: 'opacity 0.3s ease-in-out, transform 50ms ease-in-out'
+        }}
+      >
         {poi.icon ? (
           <img
             className="situm-icon"

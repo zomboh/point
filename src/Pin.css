@@ -10,3 +10,18 @@
   max-height: 30px;
   width: auto;
 }
+
+.situm-pin {
+  transform: scale(1);
+}
+
+.situm-pin.is-selected {
+  transform: scale(1.2);
+  z-index: 10;
+}
+
+.maplibregl-marker:hover .situm-pin {
+  transform: scale(1.2);
+  opacity: 1!important;
+  z-index: 10;
+}

@@ -113,6 +113,7 @@ function MapWrapper({
               } 
             });
           }}
+          selectedMarker={selectedMarker}
         />
       ))}
 
