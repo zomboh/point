@@ -25,7 +25,7 @@ If you want to deploy the app, the easiest way is to just link github with Cloud
 **Point** is deployment environment agnostic, so it doesn't include the wrangler dependency by default.
 
 ## Tech
-- `Vite` - because of its built-in HMR, React typescript template, eslint...
+- `Vite`
 - `React`
 - `Typescript`
 - `DaisyUI` (based on `tailwind css`)
@@ -34,7 +34,7 @@ If you want to deploy the app, the easiest way is to just link github with Cloud
 
 I chose this tech because:
 - It aligned with Situm's use of React and Typescript.
-- It provided me with a good starting point for developing. Vite's React typescript template is a nice boilerplate. The HMR is probably the fastest I've ever experienced, and ESLint coupled with VSCode was pretty great.
+- It provided me with a good starting point for developing. Vite's React typescript template is a nice boilerplate. The HMR is probably the fastest I've ever experienced, and ESLint coupled with VSCode allowed me to develop with confidence.
 
 It was very important for me to have a good boilerplate and help from a linter, mainly because **it is the first time I use any of these technologies**. It was hard transitioning from my imperative brain to a declarative one, but I think I surpassed the POInt of no return now and there's no going back ;)
 
