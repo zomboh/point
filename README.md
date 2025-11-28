@@ -5,10 +5,6 @@ A little web app that allows you to interact with a map.
 
 Try online at: https://point.zombotronik.workers.dev
 
-## Features
-- The usual mouse controls to navigate the map.
-- Click on a POI, get a popup with some info.
-
 ## How to install
 This is a regular node project. It was developed on the latest versions of node (v25.2.1) and npm (11.6.2).
 Make sure you have an up-to-date environment and simply run `npm install`.
@@ -45,7 +41,6 @@ It was very important for me to have a good boilerplate and help from a linter, 
 - **Search in the POI list**: no time for this. Google Gemini suggested a pretty clean and straightforward to implement this, but it felt like cheating so I preferred to keep it as is. Only very simple questions were asked to AI during development to help with stuff I was not familiar with (*e.g.: This is how I want to model this data, how would I define that in a typescript interface?*).
 - **Manage state with Redux**: I don't think it's necessary for such a simple app, but it'd be nice to learn how to do it. I was already too busy getting used to a lot of new tech. Next time!
 - **Types**: I fixed everything the linter complained about, but I'm still getting used to working with types.
-- **Split POIs in floors**: This one hurts a lot. I know, I know it sucks. I can do it, but I ran out of time and preferred to show my versatility in other areas. The way the components and state are now laid out though, I think it'd be very easy to implement this.
 - **Design patterns and good practices in general**: Again, first time using all of this tech stack. Not familiar at all with React's/typescript best practices, and I'm super rusty with coding in general.
 
 **All in all... I learned a ton and had a lot of fun!**

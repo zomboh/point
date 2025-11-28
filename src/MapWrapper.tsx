@@ -29,6 +29,7 @@ interface MapWrapperProps {
   selectedMarker: Poi | null;
   situmData: SitumData;
   viewState: ViewState;
+  selectedFloorId: number | null;
 }
 
 function MapWrapper({ 
@@ -37,27 +38,61 @@ function MapWrapper({
   onPinInfoClose, 
   selectedMarker, 
   situmData, 
-  viewState 
+  viewState,
+  selectedFloorId
 }: MapWrapperProps) {
-  const { pois, floors, loading, error } = situmData;
+  const { pois, loading, error } = situmData;
 
-  // TODO: show something in front
+  // Handle loading state
   if (loading) {
-    console.log("Loading map data...");
-    return;
+    return (
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        height: '100%',
+        width: '100%' 
+      }}>
+        Loading map data...
+      </div>
+    );
   }
 
-  // TODO: show something in front
+  // Handle error state
   if (error) {
-    console.log("Error loading map data");
-    return;
+    return (
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        height: '100%',
+        width: '100%',
+        color: 'red'
+      }}>
+        Error loading map data: {error.message}
+      </div>
+    );
   }
 
-    // TODO: show something in front
+  // Handle no data
   if (!pois || pois.length === 0) {
-    console.log("No POIs available");
-    return;
+    return (
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        height: '100%',
+        width: '100%' 
+      }}>
+        No POIs available
+      </div>
+    );
   }
+
+  // Filter POIs by selected floor
+  const filteredPois = selectedFloorId 
+    ? pois.filter(poi => poi.floorId === selectedFloorId)
+    : pois;
 
   return (
     <Map
@@ -69,7 +104,7 @@ function MapWrapper({
       <NavigationControl position="top-right" />
       <ScaleControl />
       
-      {pois.map(poi => (
+      {filteredPois.map(poi => (
         <Pin
           key={`pin-${poi.id}`}
           poi={poi}
@@ -85,7 +120,7 @@ function MapWrapper({
         />
       ))}
       
-      {selectedMarker && (
+      {selectedMarker && selectedMarker.floorId === selectedFloorId && (
         <PinInfo
           key={`pinInfo-${selectedMarker.id}`}
           poi={selectedMarker}

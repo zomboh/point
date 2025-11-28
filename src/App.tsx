@@ -1,5 +1,5 @@
 import './App.css'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import MapWrapper from './MapWrapper'
 import PoiList from './PoiList'
 import { type Poi } from '@situm/sdk-js';
@@ -18,8 +18,22 @@ function App() {
     longitude: -8.425047024336083, 
     zoom: 18 
   });
+  const [selectedFloorId, setSelectedFloorId] = useState<number | null>(null);
   
   const situmData = getSitumData(7033);
+
+  // Set default floor (level "0") when floors are loaded
+  useEffect(() => {
+    if (situmData.floors && !selectedFloorId) {
+      const defaultFloor = situmData.floors.find(floor => floor.level === 0);
+      if (defaultFloor) {
+        setSelectedFloorId(defaultFloor.id);
+      } else if (situmData.floors.length > 0) {
+        // If no floor with level "0", select the first floor
+        setSelectedFloorId(situmData.floors[0].id);
+      }
+    }
+  }, [situmData.floors, selectedFloorId]);
 
   const handleMove = (e: { viewState: ViewState }) => {
     setViewState(e.viewState);
@@ -34,6 +48,11 @@ function App() {
     setSelectedMarker(null);
   };
 
+  const handleFloorChange = (floorId: number) => {
+    setSelectedFloorId(floorId);
+    setSelectedMarker(null); // Clear selected marker when changing floors
+  };
+
   return (
     <>
       <MapWrapper
@@ -43,12 +62,15 @@ function App() {
         selectedMarker={selectedMarker}
         situmData={situmData}
         viewState={viewState}
+        selectedFloorId={selectedFloorId}
       />
       <PoiList
         onPoiClick={handlePoiClick}
         selectedMarker={selectedMarker}
         situmData={situmData}
         viewState={viewState}
+        selectedFloorId={selectedFloorId}
+        onFloorChange={handleFloorChange}
       />
     </>
   );
