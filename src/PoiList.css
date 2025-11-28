@@ -1,13 +1,16 @@
 
 .poi-list-wrapper {
+  border-radius: 0.5rem;
   box-shadow: var(--drop-shadow-xl);
   left: 1rem;
+  max-width: 400px;
+  overflow: hidden;
   position: absolute;
   top: 1rem;
+  width: 30vw;
   
   .logo {
     align-items: center;
-    border-bottom: 1px solid var(--color-neutral-500);
     background-color: var(--color-white);
     display: flex;
     flex-direction: column;

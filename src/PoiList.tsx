@@ -116,33 +116,33 @@ function PoiList({
         <img src={logoImage} alt="POInt" />
       </header>
       
-      <div className="floor-selector p-4 bg-base-200">
+      <div className="floor-selector p-4 bg-white border-b border-t border-t-solid border-t-[1px] border-b-[1px] border-neutral-300">
         <div className="text-xs font-semibold text-gray-600 mb-2">SELECT FLOOR</div>
         <div className="flex flex-wrap gap-2">
           {sortedFloors.map(floor => (
             <button
               key={`floor-${floor.id}`}
               onClick={() => onFloorChange(floor.id)}
-              className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-200 ${
+              className={`btn btn-md btn-soft btn-primary ${
                 selectedFloorId === floor.id
-                  ? 'bg-blue-600 text-white shadow-md scale-105'
-                  : 'bg-white text-gray-700 hover:bg-blue-50 hover:text-blue-600 hover:shadow-sm hover:scale-102'
+                  ? 'btn-active'
+                  : ''
               }`}
             >
-              {floor.level === 0 ? "Ground Floor" : `Floor ${floor.level}`}
+              {floor.level === 0 ? "Ground Floor" : `${floor.level}`}
             </button>
           ))}
         </div>
       </div>
 
-      <div className="search-bar p-4 bg-base-100">
+      <div className="search-bar p-4 bg-white border-b border-b-solid border-b-[1px] border-neutral-300">
         <div className="relative">
           <input
             type="text"
             placeholder="Search POIs by name or category..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-4 py-2 pl-10 pr-10 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="bg-white w-full px-4 py-2 pl-10 pr-10 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
           <svg
             className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
@@ -211,7 +211,7 @@ function PoiList({
                 }}
                 ref={poi.id === selectedMarker?.id ? activeItemRef : null}
               >
-                <li className="list-row">
+                <li className="list-row bg-neutral-50">
                   {poi.icon ? (
                     <div>
                       <img 

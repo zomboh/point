@@ -17,11 +17,11 @@
 
 .situm-pin.is-selected {
   transform: scale(1.2);
-  z-index: 10;
+  z-index: 10000;
 }
 
 .maplibregl-marker:hover .situm-pin {
   transform: scale(1.2);
   opacity: 1!important;
-  z-index: 10;
+  z-index: 10000;
 }

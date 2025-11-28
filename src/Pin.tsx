@@ -29,7 +29,7 @@ function Pin({ onClick, poi, selectedMarker }: PinProps) {
       <article
         className={`flex flex-col items-center situm-pin ${isSelected ? 'is-selected' : ''}`}
         style={{
-          opacity: shouldFade ? 0.5 : 1, 
+          opacity: shouldFade ? 0.3 : 1, 
           transition: 'opacity 0.3s ease-in-out, transform 50ms ease-in-out'
         }}
       >
